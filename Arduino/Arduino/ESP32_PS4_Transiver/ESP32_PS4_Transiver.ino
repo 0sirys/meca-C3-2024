@@ -2,16 +2,18 @@
 #include <stdlib_noniso.h>
 #include <RF24.h>
 #define CSN_PIN 4
+#define INTERMITENTES 10
+
+
 
 ControllerPtr myControllers[BP32_MAX_GAMEPADS];
 
-struct data_controller {
+typedef struct data_controller {
   byte R2_gas;
   byte L2_brake;
   byte axys;
   byte botones;
-};
-typedef struct data_controller Controllerr;
+}Controllerr;
 Controllerr tosend;
 
 
@@ -113,8 +115,6 @@ void processGamepad(ControllerPtr ctl) {
   prtmap(&tosend);
 }
 
-
-
 void processControllers() {
   for (auto myController : myControllers) {
     if (myController && myController->isConnected() && myController->hasData()) {
@@ -128,21 +128,22 @@ void processControllers() {
 }
 
 void mapper(ControllerPtr ct, Controllerr* obj) {
-  obj->R2_gas = map(ct->throttle(), 1023, 0, 0, 255);
-  obj->L2_brake = map(ct->brake(), 1023, 0, 0, 255);
+  obj->R2_gas = map(ct->throttle(), 0, 1023, 0, 255);
+  obj->L2_brake = map(ct->brake(), 0, 1023, 0, 255);
   obj->botones = ct->buttons();
   obj->axys = map(ct->axisX(), -511, 511, 0, 180);
 }
 void prtmap(Controllerr* obj) {
+  /*print de los los botones pulsados*/
   Serial.printf(" R2: %4d, L2 : %4d, Boton: %4d, Joytick: %4d\n", obj->R2_gas, obj->L2_brake, obj->botones, obj->axys);
 }
 
 // Arduino setup function. Runs in CPU 1
 void setup() {
-  Serial.begin(115200);
-  Serial.printf("Firmware: %s\n", BP32.firmwareVersion());
-  const uint8_t* addr = BP32.localBdAddress();
-  Serial.printf("BD Addr: %2X:%2X:%2X:%2X:%2X:%2X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+  Serial.begin(115200);/*Inicializacion de Monitor Serial*/
+  Serial.printf("Firmware: %s\n", BP32.firmwareVersion());/*Print especificaciones de dispositivo*/
+  const uint8_t* addr = BP32.localBdAddress();/*funcion que retorna la MAC y almacenamiento en addr*/
+  Serial.printf("BD Addr: %2X:%2X:%2X:%2X:%2X:%2X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);/*Printeamos la mac*/
 
   // Setup the Bluepad32 callbacks
   BP32.setup(&onConnectedController, &onDisconnectedController);
@@ -152,6 +153,7 @@ void setup() {
 
   // Enables mouse / touchpad support for gamepads that support them.
   BP32.enableVirtualDevice(false);
+  // status antena
   if (!radio.begin()) {
     Serial.print(F("No se detecta modulo nrf24\n"));
   } else {

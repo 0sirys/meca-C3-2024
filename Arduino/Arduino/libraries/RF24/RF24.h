@@ -12,8 +12,8 @@
  * Class declaration for RF24 and helper enums
  */
 
-#ifndef __RF24_H__
-#define __RF24_H__
+#ifndef RF24_H_
+#define RF24_H_
 
 #include "RF24_config.h"
 
@@ -1358,7 +1358,7 @@ public:
      * (ACK) packet during the delay between retry attempts.
      *
      * @param delay How long to wait between each retry, in multiples of
-     * 250 us. The minumum of 0 means 250 us, and the maximum of 15 means
+     * 250 us. The minimum of 0 means 250 us, and the maximum of 15 means
      * 4000 us. The default value of 5 means 1500us (5 * 250 + 250).
      * @param count How many retries before giving up. The default/maximum is 15. Use
      * 0 to disable the auto-retry feature all together.
@@ -1746,7 +1746,7 @@ public:
      *
      * On all devices but Linux and ATTiny, a small delay is added to the CSN toggling function
      *
-     * This is intended to minimise the speed of SPI polling due to radio commands
+     * This is intended to minimize the speed of SPI polling due to radio commands
      *
      * If using interrupts or timed requests, this can be set to 0 Default:5
      */
@@ -1789,7 +1789,7 @@ public:
      * @brief Open or close all data pipes.
      *
      * This function does not alter the addresses assigned to pipes. It is simply a
-     * convenience function that allows controling all pipes at once.
+     * convenience function that allows controlling all pipes at once.
      * @param isEnabled `true` opens all pipes; `false` closes all pipes.
      */
     void toggleAllPipes(bool isEnabled);
@@ -1929,12 +1929,10 @@ private:
      *
      * @param reg Which register. Use constants from nRF24L01.h
      * @param value The new value to write
-     * @param is_cmd_only if this parameter is true, then the `reg` parameter
-     * is written, and the `value` param is ignored.
      * @return Nothing. Older versions of this function returned the status
      * byte, but that it now saved to a private member on all SPI transactions.
      */
-    void write_register(uint8_t reg, uint8_t value, bool is_cmd_only = false);
+    void write_register(uint8_t reg, uint8_t value);
 
     /**
      * Write the transmit payload
@@ -2412,4 +2410,4 @@ private:
  * Use `ctrl+c` to quit at any time.
  */
 
-#endif // __RF24_H__
+#endif // RF24_H_

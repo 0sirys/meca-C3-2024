@@ -19,12 +19,11 @@ from RF24 import RF24, RF24_PA_LOW, RF24_DRIVER
 print(__file__)  # print example name
 
 ########### USER CONFIGURATION ###########
-# See https://github.com/TMRh20/RF24/blob/master/pyRF24/readme.md
-# Radio CE Pin, CSN Pin, SPI Speed
-# CE Pin uses GPIO number with BCM and SPIDEV drivers, other platforms use
+# CE Pin uses GPIO number with RPi and SPIDEV drivers, other drivers use
 # their own pin numbering
-# CS Pin addresses the SPI bus number at /dev/spidev<a>.<b>
-# ie: RF24 radio(<ce_pin>, <a>*10+<b>); spidev1.0 is 10, spidev1.1 is 11 etc..
+# CS Pin corresponds the SPI bus number at /dev/spidev<a>.<b>
+# ie: radio = RF24(<ce_pin>, <a>*10+<b>)
+# where CS pin for /dev/spidev1.0 is 10, /dev/spidev1.1 is 11 etc...
 CSN_PIN = 0  # GPIO8 aka CE0 on SPI bus 0: /dev/spidev0.0
 if RF24_DRIVER == "MRAA":
     CE_PIN = 15  # for GPIO22
@@ -94,9 +93,9 @@ def master():
             print("Transmission failed or timed out")
         else:
             radio.startListening()  # put radio in RX mode
-            timout = time.monotonic() * 1000 + 200  # use 200 ms timeout
+            timeout = time.monotonic() * 1000 + 200  # use 200 ms timeout
             # declare a variable to save the incoming response
-            while not radio.available() and time.monotonic() * 1000 < timout:
+            while not radio.available() and time.monotonic() * 1000 < timeout:
                 pass  # wait for incoming payload or timeout
             radio.stopListening()  # put radio in TX mode
             end_timer = time.monotonic_ns()  # end timer
