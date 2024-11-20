@@ -7,40 +7,35 @@
 #define SCK_PIN 18
 #define INTERMITENTES 10
 //retencion de pulso en cualquier
-class StateKeeper {
+class Button {
 private:
-  unsigned long lapse;
-  uint8_t pin;
-  uint8_t currentState;
-  uint8_t previousState = 1;
+  int pinbutton;
 public:
-  StateKeeper(uint8_t _pin, uint8_t default_state /* 1 or 0*/) {
-    this->lapse = millis();
-    this->pin = _pin;
-    this->currentState = default_state;
-    this->previousState;
+  uint8_t previousState = HIGH;  // ultimo estado del boton
+  uint8_t currentState = LOW;    // estado actual del boton
+  unsigned long lapse = 0;       // track control del rebote de boton
+  Button(int pin) {              // constructor
+    this->pinbutton = pin;
   };
-  uint8_t setSatate(uint8_t mode /*1 or 0*/) {
-    if ((millis() - lapse) == 24) {
-      this->lapse = millis();
-      if (mode > this->previousState) {
-        this->previousState = this->currentState;
-        this->currentState = mode;
-        return this->currentState;
+  // Funcion para actualizar el estado del boton
+  uint8_t setState(uint8_t mode) {
+    if (millis() - lapse >= 24) {  // Intervalo de rebote
+      lapse = millis();            // reinicio de conteo
+
+      if (mode > 0) {                              // condicion para solo activar en high
+        uint8_t pivot = this->previousState;       // pivote para acarreo de estado.
+        this->previousState = this->currentState;  //acarreo de estado actual a anterior.
+        this->currentState = pivot;                // modifico el estado actual 1 o 0
+        return this->currentState;                 // devuelvo el nuevo estado anclado.
       }
     }
-    return this->previousState;
+    return this->currentState;  // devuelvo el estado anclado.
   };
-  uint8_t getCurrentState() {
-    return this->currentState;
-  };
-  uint8_t getPreviousState() {
-    this->previousState;
-  };
-  uint8_t getpin() {
-    return this->pin;
+  int pin() {
+    return this->pinbutton;
   };
 };
+
 //propiedades y funciones del motor
 class Motor {
 private:
@@ -78,22 +73,23 @@ Controllerr buffer;
 RF24 radio(CE_PIN, CSN_PIN);
 //direccion de antena
 const uint64_t address = 0xE8E8F0F0E1LL;
+
 //Motores 1 y 2 independientes
 Motor rightEdge;
 Motor leftEdge;
 // botones con retencion
-StateKeeper buttonkeeper(INTERMITENTES, LOW);
+Button buttonkeeper(INTERMITENTES);
 
 //inicializacion de parametros
 void setparameters() {
-  buffer.axys = 127;
-  buffer.L2_brake = 0;
-  buffer.R2_gas = 0;
-  buffer.botones = 0;
+  buffer.axys = 127;    // centro del joystick
+  buffer.L2_brake = 0;  // reversa y freno
+  buffer.R2_gas = 0;    // avance
+  buffer.botones = 0;   // intermitentes
 };
 // estatus de antena de radio frecuencia
 void radioStatus() {
-  if (!radio.begin()) {
+  if (!radio.begin()) { // condicion esta
     Serial.println("Conexion Nrf24 fallida");
     while (1) {};
   }
@@ -109,7 +105,7 @@ void radioStatus() {
 void Duty() {
   rightEdge.marcha(buffer.R2_gas, buffer.L2_brake);
   leftEdge.marcha(buffer.R2_gas, buffer.L2_brake);
-  digitalWrite(buttonkeeper.getpin(), buttonkeeper.setSatate(buffer.botones));
+  digitalWrite(buttonkeeper.pin(), buttonkeeper.setState(buffer.botones));
 }
 
 
@@ -125,7 +121,7 @@ void receptor() {
   while (radio.available()) {
     radio.read(&buffer, sizeof(buffer));
     char release[100];
-    sprintf(release, "R2: %d, L2:%d, Botones:%d, axisX:%d\n", buffer.R2_gas, buffer.L2_brake, buttonkeeper.setSatate(buffer.botones), buffer.axys);
+    sprintf(release, "R2: %d, L2:%d, Botones:%d, axisX:%d\n", buffer.R2_gas, buffer.L2_brake, buttonkeeper.setState(buffer.botones), buffer.axys);
     Serial.print(release);
     Duty();
   }
