@@ -1,9 +1,48 @@
 #include <PS4Controller.h>
+<<<<<<< Updated upstream
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_gap_bt_api.h"
 
 #define INTERMITENTES 10
+=======
+#include "esp_bt_defs.h"
+#include "esp_bt_main.h"
+#include "esp_bt_device.h"
+#include "esp_gap_bt_api.h"
+#include "esp_err.h"
+#define CE_PIN 4
+#define CSN_PIN 5
+#define IRQ_PIN 10
+#define MOSI_PIN 23
+#define MISO_PIN 19
+#define SCK_PIN 18
+#define INTERMITENTES 14
+//radiofrecuencia
+#if RF_SET
+#include <RF24.h>
+//objeto nrf24L01
+RF24 radio(CE_PIN, CSN_PIN);
+
+const char* address = "08:d1:f9:c7:fd:3e";  //MAC ESP32
+unsigned long lastTimeStamp = 0;            //Tiempo de ejecucion
+
+// estatus de antena de radio frecuencia
+void radioStatus() {
+  if (!radio.begin()) {  // condicion esta
+    Serial.println("Conexion Nrf24 fallida");
+    while (1) {};
+  }
+  Serial.print("!!Conexion Nrf24 exitosa!!\n");
+  radio.setChannel(100);
+  radio.setAutoAck(false);
+  radio.setDataRate(RF24_250KBPS);
+  radio.setPALevel(RF24_PA_MAX);
+  radio.openReadingPipe(1, address);
+  radio.startListening();
+}
+#endif
+>>>>>>> Stashed changes
 //retencion de pulso en cualquier
 class Button {
 private:
@@ -19,6 +58,7 @@ public:
     pinMode(pin, OUTPUT);
   };
   // Funcion para actualizar el estado del boton
+<<<<<<< Updated upstream
   uint8_t Toggle(uint8_t mode) {
     this->currentState = mode;
 
@@ -29,6 +69,17 @@ public:
         digitalWrite(this->pinbutton, HIGH);
       } else {
         digitalWrite(this->pinbutton, LOW);
+=======
+  uint8_t setState(uint8_t mode) {
+    if (millis() - lapse >= 50) {  // Intervalo de rebote
+
+      if (mode > 0) {                              // condicion para solo activar en high
+        uint8_t pivot = this->previousState;       // pivote para acarreo de estado.
+        this->previousState = this->currentState;  //acarreo de estado actual a anterior.
+        this->currentState = pivot;                // modifico el estado actual 1 o 0
+        lapse = millis();                          // reinicio de conteo
+        return this->currentState;                 // devuelvo el nuevo estado anclado.
+>>>>>>> Stashed changes
       }
       this->previousState = this->currentState;
       return this->currentState;
@@ -52,14 +103,23 @@ public:
   void setOutput(uint8_t val1, uint8_t val2) {
     this->d01 = val1;
     this->d02 = val2;
+    pinMode(val1, OUTPUT);
+    pinMode(val2, OUTPUT);
   };
   uint8_t marcha(uint8_t D1, uint8_t D2) {
+    if (D1 <= 0 && D2 <= 0) {
+      analogWrite(this->d01, 0);
+      analogWrite(this->d02, 0);
+      return 0;
+    }
     if (!(D1 > D2)) {
-      analogWrite(this->d02, D2);
+      analogWrite(this->d01, D2);
+      analogWrite(this->d02, 0);
       return D2;
     }
     if (!(D2 > D1)) {
-      analogWrite(this->d01, D1);
+      analogWrite(this->d02, D1);
+      analogWrite(this->d01, 0);
       return D1;
     }
     if (D2 == D1) {
@@ -71,11 +131,25 @@ public:
   }
 };
 
+<<<<<<< Updated upstream
 
 Motor rightEdge;  //Motor 1
 Motor leftEdge;   // Motor 2
+=======
+typedef struct data_controller {
+  byte R2_gas;
+  byte L2_brake;
+  byte axyz;
+  byte botones;
+} Controllerr;
+//objeto controllerr
+Controllerr buffer;
 
 
+>>>>>>> Stashed changes
+
+
+<<<<<<< Updated upstream
 Button buttonkeeper(INTERMITENTES);  // botone con retencion
 
 void removePairedController() {  // desvincula los mandos conectados.
@@ -93,12 +167,54 @@ void Duty() {  // funciones del carrito
   Serial.print(release);
   rightEdge.marcha(PS4.R2Value(), PS4.L2Value());
   leftEdge.marcha(PS4.R2Value(), PS4.L2Value());
+=======
+void onDisConnect() {
+  Serial.println("Disconnected!");
+}
+
+void removePairedDevices() {
+  uint8_t pairedDeviceBtAddr[20][6];
+  int count = esp_bt_gap_get_bond_device_num();
+  esp_bt_gap_get_bond_device_list(&count, pairedDeviceBtAddr);
+  for (int i = 0; i < count; i++) {
+    esp_bt_gap_remove_bond_device(pairedDeviceBtAddr[i]);
+  }
+}
+
+
+
+void onConnect() {
+  Serial.println("Connected!");
+}
+//inicializacion de parametros
+void mapper() {
+  buffer.axyz = PS4.LStickX();      // joystick
+  buffer.L2_brake = PS4.L2Value();  // reversa y freno
+  buffer.R2_gas = PS4.R2Value();    // avance
+  buffer.botones = PS4.Cross();     // intermitentes
+};
+
+// funciones del carrito
+void Duty() {
+  if (buffer.axyz == 127) {
+    leftEdge.marcha(255, 0);
+    rightEdge.marcha(0, 255);
+  } else if (buffer.axyz == 129) {
+    leftEdge.marcha(0, 255);
+    rightEdge.marcha(255, 0);
+  } else {
+    leftEdge.marcha(buffer.L2_brake,buffer.R2_gas );
+    rightEdge.marcha(buffer.L2_brake, buffer.R2_gas);
+  }
+  digitalWrite(buttonkeeper.pin(), buttonkeeper.setState(buffer.botones));
+>>>>>>> Stashed changes
 }
 
 
 
 void setup() {  // Inicializacion de esp32
   rightEdge.setOutput(15, 13);
+<<<<<<< Updated upstream
   leftEdge.setOutput(0, 2);
   Serial.begin(115200);
   PS4.begin();
@@ -106,6 +222,24 @@ void setup() {  // Inicializacion de esp32
   while (!PS4.isConnected()) {
     Serial.print("Wait Controller");
   }
+=======
+  leftEdge.setOutput(2, 0);
+  pinMode(buttonkeeper.pin(), OUTPUT);
+  Serial.begin(115200);
+  PS4.begin();
+  PS4.attachOnConnect(onConnect);
+  PS4.attachOnDisconnect(onDisConnect);
+  
+  
+}
+//obtiene los datos y los almacena en el buffer
+void receptor() {
+  mapper();
+  char release[100];
+  sprintf(release, "R2: %d, L2:%d, Botones:%d, axisX:%d\n", buffer.R2_gas, buffer.L2_brake, buttonkeeper.setState(buffer.botones), buffer.axyz);
+  Serial.print(release);
+  Duty();
+>>>>>>> Stashed changes
 }
 
 void loop() {

@@ -14,6 +14,7 @@ typedef struct data_controller {
   byte axys;
   byte botones;
 }Controllerr;
+
 Controllerr tosend;
 
 
@@ -154,9 +155,9 @@ void setup() {
   // Enables mouse / touchpad support for gamepads that support them.
   BP32.enableVirtualDevice(false);
   // status antena
-  if (!radio.begin()) {
-    Serial.print(F("No se detecta modulo nrf24\n"));
-  } else {
+  // if (!radio.begin()) {
+  //   Serial.print(F("No se detecta modulo nrf24\n"));
+  // } else {
     Serial.print(F(" modulo nrf24 conectado\n"));
     // NRF24 configuracion
     radio.openWritingPipe(address);
@@ -165,7 +166,7 @@ void setup() {
     radio.setDataRate(RF24_250KBPS);
     radio.setPALevel(RF24_PA_MAX);
     radio.printPrettyDetails();
-  }
+  // }
 }
 
 // Arduino loop function. Runs in CPU 1.
