@@ -12,27 +12,27 @@
   <Part Number>: GW5A-LV25MG121NC1/I0
   <Device>: GW5A-25
   <Device Version>: B
-  <Created Time>:Tue Feb  4 09:51:51 2025
+  <Created Time>:Tue Feb  4 11:33:03 2025
 
 
 2. PnR Details
 
   Running placement:
-    Placement Phase 0: CPU time = 0h 0m 0.009s, Elapsed time = 0h 0m 0.01s
-    Placement Phase 1: CPU time = 0h 0m 0.266s, Elapsed time = 0h 0m 0.265s
-    Placement Phase 2: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-    Placement Phase 3: CPU time = 0h 0m 0.583s, Elapsed time = 0h 0m 0.583s
-    Total Placement: CPU time = 0h 0m 0.858s, Elapsed time = 0h 0m 0.858s
+    Placement Phase 0: CPU time = 0h 0m 0.011s, Elapsed time = 0h 0m 0.01s
+    Placement Phase 1: CPU time = 0h 0m 0.243s, Elapsed time = 0h 0m 0.244s
+    Placement Phase 2: CPU time = 0h 0m 0.001s, Elapsed time = 0h 0m 0s
+    Placement Phase 3: CPU time = 0h 0m 0.575s, Elapsed time = 0h 0m 0.576s
+    Total Placement: CPU time = 0h 0m 0.83s, Elapsed time = 0h 0m 0.83s
  Running routing:
     Routing Phase 0: CPU time = 0h 0m 0.001s, Elapsed time = 0h 0m 0s
-    Routing Phase 1: CPU time = 0h 0m 0.885s, Elapsed time = 0h 0m 0.886s
-    Routing Phase 2: CPU time = 0h 0m 0.021s, Elapsed time = 0h 0m 0.021s
+    Routing Phase 1: CPU time = 0h 0m 0.921s, Elapsed time = 0h 0m 0.921s
+    Routing Phase 2: CPU time = 0h 0m 0.02s, Elapsed time = 0h 0m 0.021s
     Routing Phase 3: CPU time = 0h 0m 0s, Elapsed time = 0h 0m 0s
-    Total Routing: CPU time = 0h 0m 0.907s, Elapsed time = 0h 0m 0.907s
+    Total Routing: CPU time = 0h 0m 0.942s, Elapsed time = 0h 0m 0.942s
  Generate output files:
     CPU time = 0h 0m 3s, Elapsed time = 0h 0m 3s
 
- Total Time and Memory Usage: CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s, Peak memory usage = 499MB
+ Total Time and Memory Usage: CPU time = 0h 0m 4s, Elapsed time = 0h 0m 4s, Peak memory usage = 443MB
 
 
 3. Resource Usage Summary
@@ -69,8 +69,8 @@
   bank 3   | 0/4         | 0%          
   bank 4   | 0/11        | 0%          
   bank 5   | 0/13        | 0%          
-  bank 6   | 5/10        | 50%         
-  bank 7   | 3/16        | 19%         
+  bank 6   | 6/10        | 60%         
+  bank 7   | 2/16        | 13%         
   bank 10  | 0/4         | 0%          
   ======================================
 
@@ -106,7 +106,7 @@ p4         | -         | G11/7         | Y          | in    | IOT7[A]  | LVCMOS3
 one        | -         | A11/6         | Y          | out   | IOL14[A] | LVCMOS33   | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3        | MEDIUM        | NONE         
 two        | -         | E11/6         | Y          | out   | IOL3[A]  | LVCMOS33   | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3        | MEDIUM        | NONE         
 three      | -         | K11/7         | Y          | out   | IOT11[A] | LVCMOS33   | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3        | MEDIUM        | NONE         
-allfree    | -         | K10/7         | Y          | out   | IOT15[B] | LVCMOS33   | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3        | MEDIUM        | NONE         
+allfree    | -         | A10/6         | Y          | out   | IOL14[B] | LVCMOS33   | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3        | MEDIUM        | NONE         
 ==================================================================================================================================================================================================================
 
 
@@ -126,7 +126,7 @@ G10/7    | -        | in    | IOT7[B]  | LVCMOS33 | 8     | UP        | OFF     
 K11/7    | three    | out   | IOT11[A] | LVCMOS33 | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 L11/7    | -        | in    | IOT11[B] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 L10/7    | -        | in    | IOT15[A] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
-K10/7    | allfree  | out   | IOT15[B] | LVCMOS33 | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
+K10/7    | -        | in    | IOT15[B] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 L7/7     | -        | in    | IOT19[A] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 L8/7     | -        | in    | IOT19[B] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 K7/7     | -        | in    | IOT21[A] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
@@ -188,7 +188,7 @@ D10/6    | -        | in    | IOL9[B]  | LVCMOS33 | 8     | UP        | OFF     
 B11/6    | p2       | in    | IOL12[A] | LVCMOS33 | OFF   | NONE      | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 B10/6    | -        | in    | IOL12[B] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 A11/6    | one      | out   | IOL14[A] | LVCMOS33 | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
-A10/6    | -        | in    | IOL14[B] | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
+A10/6    | allfree  | out   | IOL14[B] | LVCMOS33 | 8     | NONE      | OFF       | OFF        | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 C1/10    | -        | in    | IOR1[A]  | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         
 A3/10    | -        | in    | IOR1[B]  | LVCMOS33 | 8     | UP        | OFF       | ON         | OFF        | OFF        | OFF             | OFF           | 3.3   | MEDIUM        | NONE         

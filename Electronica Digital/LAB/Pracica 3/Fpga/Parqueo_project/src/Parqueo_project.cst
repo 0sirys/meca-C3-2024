@@ -4,10 +4,10 @@
 //Tool Version: V1.9.10.03 Education (64-bit)
 //Part Number: GW5A-LV25MG121NC1/I0
 //Device: GW5A-25
-//Device Version: A
-//Created Time: Tue 02 04 09:40:33 2025
+//Device Version: B
+//Created Time: Tue 02 04 11:32:55 2025
 
-IO_LOC "allfree" K10;
+IO_LOC "allfree" A10;
 IO_PORT "allfree" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
 IO_LOC "three" K11;
 IO_PORT "three" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8 BANK_VCCIO=3.3;
