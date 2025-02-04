@@ -1,8 +1,9 @@
--d C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\gwsynthesis\Parqueo_project.vg
--p GW5A-25A-MBGA121N-1
+-d C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\gwsynthesis\Parqueo_project.vg
+-p GW5A-25B-MBGA121N-1
 -pn GW5A-LV25MG121NC1/I0
--cfg C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\device.cfg
--sdc C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\src\Parqueo_project.sdc
+-cst C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\src\Parqueo_project.cst
+-cfg C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\device.cfg
+-sdc C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\src\Parqueo_project.sdc
 -bit
 -tr
 -ph
@@ -12,4 +13,3 @@
 -correct_hold 1
 -route_maxfan 23
 -global_freq 100.000
--enable_dsrm 0

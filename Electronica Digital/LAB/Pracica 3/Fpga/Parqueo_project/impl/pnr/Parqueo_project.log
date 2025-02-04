@@ -1,6 +1,8 @@
-Reading netlist file: "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\gwsynthesis\Parqueo_project.vg"
-Parsing netlist file "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\gwsynthesis\Parqueo_project.vg" completed
+Reading netlist file: "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\gwsynthesis\Parqueo_project.vg"
+Parsing netlist file "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\gwsynthesis\Parqueo_project.vg" completed
 Processing netlist completed
+Reading constraint file: "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\src\Parqueo_project.cst"
+Physical Constraint parsed completed
 Running placement......
 [10%] Placement Phase 0 completed
 [20%] Placement Phase 1 completed
@@ -18,10 +20,10 @@ Bitstream generation in progress......
 Bitstream generation completed
 Running power analysis......
 [100%] Power analysis completed
-Generate file "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.power.html" completed
-Generate file "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.pin.html" completed
-Generate file "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.rpt.html" completed
-Generate file "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.rpt.txt" completed
-Generate file "C:\Users\scatg\Documents\meca-C1-2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.tr.html" completed
-Mon Feb  3 22:06:39 2025
+Generate file "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.power.html" completed
+Generate file "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.pin.html" completed
+Generate file "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.rpt.html" completed
+Generate file "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.rpt.txt" completed
+Generate file "C:\Users\CCTV\Documents\C1_2025\Electronica Digital\LAB\Pracica 3\Fpga\Parqueo_project\impl\pnr\Parqueo_project.tr.html" completed
+Tue Feb  4 09:51:51 2025
 
